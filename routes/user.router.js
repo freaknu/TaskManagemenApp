@@ -1,20 +1,17 @@
 import express from "express";
-import { UserControllers } from "../controllers/user.controller.js";
+import UserControllers from "../controllers/user.controller.js";
 
 const router = express.Router();
-const userController = new UserControllers(); // Renamed to camelCase
-
-// Routes
+const userController = new UserControllers();
 router.post(
   "/signup",
-  userController.validate.validateSignUp(), // Add validation middleware
-  userController.SignUp // Controller method
+  userController.validate.validateSignUp(),
+  userController.signUp
 );
-
 router.post(
   "/signin",
-  userController.validate.validateSignIn(), // Add validation middleware
-  userController.SignIn // Controller method
+  userController.validate.validateSignIn(),
+  userController.signIn
 );
 
 export default router;
