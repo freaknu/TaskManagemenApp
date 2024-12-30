@@ -5,12 +5,13 @@ const taskSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: [true, "Task title is required"],
+      required: [true, "Task title is required."],
       trim: true,
     },
     description: {
       type: String,
-      required: [true, "Task description is required"],
+      required: [true, "Task description is required."],
+      trim: true,
     },
     priority: {
       type: String,
@@ -19,13 +20,18 @@ const taskSchema = new mongoose.Schema(
     },
     dueDate: {
       type: Date,
-      required: [true, "Due date is required"],
-      default: Date.now,
+      required: [true, "Due date is required."],
+      validate: {
+        validator: function (value) {
+          return value >= new Date();
+        },
+        message: "Due date cannot be in the past.",
+      },
     },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: [true, "User ID is required"],
+      required: [true, "User ID is required."],
     },
   },
   {
